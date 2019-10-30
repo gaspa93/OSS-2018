@@ -37,13 +37,14 @@ API_KEY = open('key.txt', 'r').read()
 g = Github(API_KEY)
 
 min_stars = 100
+max_stars = 4011
 creation_date_up = '2019-01-01'
 creation_date_down = '2017-01-01'
-query = 'stars:>{} created:>{}'.format(min_stars, creation_date_down)
+query = 'stars:<{} created:>{}'.format(max_stars, creation_date_down)
 
-with open('2018_top_projects.csv', 'w') as pfile:
+with open('2018_top_projects.csv', 'a') as pfile:
     pwriter = csv.writer(pfile, quoting = csv.QUOTE_MINIMAL, delimiter=',')
-    pwriter.writerow(['id_project','name', 'created_at', 'size', 'watchers_count', 'stars','description', 'url'])
+    #pwriter.writerow(['id_project','name', 'created_at', 'size', 'watchers_count', 'stars','description', 'url'])
 
     repositories = g.search_repositories(query, 'stars', 'desc')
     for repo in repositories:
